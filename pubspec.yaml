@@ -1,6 +1,6 @@
 name: window_lockable
 description: "The window_lockable is helpful when you want to fix the window size in a Windows application."
-version: 1.0.1
+version: 1.0.3
 homepage: https://github.com/kihyun1998/window_lockable
 
 environment:
