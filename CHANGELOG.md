@@ -1,3 +1,4 @@
-## 0.0.1
+## 1.0.0
 
-* TODO: Describe initial release.
+- Can fix/unfix the window size in a Windows environment.
+
