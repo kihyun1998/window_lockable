@@ -18,6 +18,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   final _windowLockablePlugin = WindowLockable();
+  String _msg = "waiting..";
 
   @override
   void initState() {
@@ -50,6 +51,9 @@ class _MyAppState extends State<MyApp> {
   Future<void> setWindowLock() async {
     try {
       final bool result = await _windowLockablePlugin.setWindowLock();
+      setState(() {
+        _msg = "Result is $result";
+      });
     } on PlatformException catch (e) {
       print("Failed : ${e.message}");
     }
@@ -58,6 +62,9 @@ class _MyAppState extends State<MyApp> {
   Future<void> setWindowUnLock() async {
     try {
       final bool result = await _windowLockablePlugin.setWindowUnlock();
+      setState(() {
+        _msg = "Result is $result";
+      });
     } on PlatformException catch (e) {
       print("Failed : ${e.message}");
     }
@@ -82,6 +89,7 @@ class _MyAppState extends State<MyApp> {
               ElevatedButton(
                   onPressed: setWindowUnLock, child: const Text("Unlock")),
               const SizedBox(height: 30),
+              Text(_msg),
             ],
           ),
         ),
