@@ -3,6 +3,7 @@
         "xstring": "cpp",
         "variant": "cpp",
         "memory": "cpp",
-        "mutex": "cpp"
+        "mutex": "cpp",
+        "map": "cpp"
     }
 }

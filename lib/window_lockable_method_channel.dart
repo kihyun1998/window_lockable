@@ -11,13 +11,6 @@ class MethodChannelWindowLockable extends WindowLockablePlatform {
       const MethodChannel('io.github.kihyun1998/window_lockable');
 
   @override
-  Future<String?> getPlatformVersion() async {
-    final version =
-        await methodChannel.invokeMethod<String>('getPlatformVersion');
-    return version;
-  }
-
-  @override
   Future<bool> setWindowLock() async {
     final bool result = await methodChannel
         .invokeMethod('setWindowSizeable', {"sizeable": false});

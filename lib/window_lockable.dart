@@ -1,15 +1,1 @@
-import 'window_lockable_platform_interface.dart';
-
-class WindowLockable {
-  Future<String?> getPlatformVersion() {
-    return WindowLockablePlatform.instance.getPlatformVersion();
-  }
-
-  Future<bool> setWindowLock() {
-    return WindowLockablePlatform.instance.setWindowLock();
-  }
-
-  Future<bool> setWindowUnlock() {
-    return WindowLockablePlatform.instance.setWindowUnlock();
-  }
-}
+export 'package:window_lockable/window_lockable_class.dart';

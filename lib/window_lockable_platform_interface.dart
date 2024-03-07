@@ -23,10 +23,6 @@ abstract class WindowLockablePlatform extends PlatformInterface {
     _instance = instance;
   }
 
-  Future<String?> getPlatformVersion() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
-  }
-
   Future<bool> setWindowLock() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
