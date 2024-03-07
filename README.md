@@ -21,3 +21,7 @@ using pubspec.yaml
 dependencies:
   window_lockable: ^1.0.0
 ```
+
+## pub.dev URL
+
+https://pub.dev/packages/window_lockable
