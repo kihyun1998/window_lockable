@@ -7,11 +7,27 @@ import 'window_lockable_platform_interface.dart';
 class MethodChannelWindowLockable extends WindowLockablePlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
-  final methodChannel = const MethodChannel('window_lockable');
+  final methodChannel =
+      const MethodChannel('io.github.kihyun1998/window_lockable');
 
   @override
   Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
+    final version =
+        await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;
+  }
+
+  @override
+  Future<bool> setWindowLock() async {
+    final bool result = await methodChannel
+        .invokeMethod('setWindowSizeable', {"sizeable": false});
+    return result;
+  }
+
+  @override
+  Future<bool> setWindowUnlock() async {
+    final bool result = await methodChannel
+        .invokeMethod('setWindowSizeable', {"sizeable": true});
+    return result;
   }
 }

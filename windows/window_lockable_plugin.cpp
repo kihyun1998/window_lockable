@@ -13,6 +13,11 @@
 #include <memory>
 #include <sstream>
 
+using flutter::EncodableMap;
+using flutter::EncodableValue;
+// using flutter::MethodChannel;
+// using flutter::MethodResult;
+
 namespace window_lockable {
 
 // static
@@ -20,7 +25,7 @@ void WindowLockablePlugin::RegisterWithRegistrar(
     flutter::PluginRegistrarWindows *registrar) {
   auto channel =
       std::make_unique<flutter::MethodChannel<flutter::EncodableValue>>(
-          registrar->messenger(), "window_lockable",
+          registrar->messenger(), "io.github.kihyun1998/window_lockable",
           &flutter::StandardMethodCodec::GetInstance());
 
   auto plugin = std::make_unique<WindowLockablePlugin>();
@@ -51,6 +56,20 @@ void WindowLockablePlugin::HandleMethodCall(
       version_stream << "7";
     }
     result->Success(flutter::EncodableValue(version_stream.str()));
+  } else if(method_call.method_name().compare("setWindowSizeable") == 0){
+    HWND hwnd = GetForegroundWindow();
+    const auto* arguments = std::get_if<EncodableMap>(method_call.arguments());
+    bool sizeable = std::get<bool>(arguments->at(EncodableValue("sizeable")));
+    if (hwnd == NULL) {
+      result->Error("NO_WINDOW", "No active window found");
+      return;
+    }
+    if (sizeable) {
+      SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) | WS_SIZEBOX);
+    } else {
+      SetWindowLong(hwnd, GWL_STYLE, GetWindowLong(hwnd, GWL_STYLE) & ~WS_SIZEBOX);
+    }
+    result->Success(EncodableValue(sizeable));
   } else {
     result->NotImplemented();
   }

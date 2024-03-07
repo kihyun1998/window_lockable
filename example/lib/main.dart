@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:window_lockable/window_lockable.dart';
 
@@ -31,8 +31,8 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      platformVersion =
-          await _windowLockablePlugin.getPlatformVersion() ?? 'Unknown platform version';
+      platformVersion = await _windowLockablePlugin.getPlatformVersion() ??
+          'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -47,15 +47,43 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Future<void> setWindowLock() async {
+    try {
+      final bool result = await _windowLockablePlugin.setWindowLock();
+    } on PlatformException catch (e) {
+      print("Failed : ${e.message}");
+    }
+  }
+
+  Future<void> setWindowUnLock() async {
+    try {
+      final bool result = await _windowLockablePlugin.setWindowUnlock();
+    } on PlatformException catch (e) {
+      print("Failed : ${e.message}");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: [
+              Text('Running on: $_platformVersion\n'),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                  onPressed: setWindowLock, child: const Text("Lock")),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                  onPressed: setWindowUnLock, child: const Text("Unlock")),
+              const SizedBox(height: 30),
+            ],
+          ),
         ),
       ),
     );
