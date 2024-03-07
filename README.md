@@ -19,7 +19,7 @@ flutter pub add window_lockable
 using pubspec.yaml
 ```
 dependencies:
-  window_lockable: ^1.0.0
+  window_lockable: ^1.1.1
 ```
 
 ## pub.dev URL

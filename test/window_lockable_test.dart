@@ -41,4 +41,14 @@ void main() {
 
     expect(await windowLockablePlugin.setWindowUnlock(), true);
   });
+
+  test('windowLock', () async {
+    MockWindowLockablePlatform fakePlatform = MockWindowLockablePlatform();
+    WindowLockablePlatform.instance = fakePlatform;
+  });
+
+  test('windowUnLock', () async {
+    MockWindowLockablePlatform fakePlatform = MockWindowLockablePlatform();
+    WindowLockablePlatform.instance = fakePlatform;
+  });
 }

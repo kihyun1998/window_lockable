@@ -17,6 +17,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _windowLockablePlugin = WindowLockable();
+
+  /// You can use easily window lock function
+  /// But no return.
+  final _windowLockableFunction = WindowLockableFunction();
   String _msg = "waiting..";
 
   Future<void> setWindowLock() async {
@@ -47,18 +51,29 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Window Lockable Example'),
         ),
         body: Center(
           child: Column(
             children: [
               ElevatedButton(
-                  onPressed: setWindowLock, child: const Text("Lock")),
+                  onPressed: setWindowLock,
+                  child: const Text("Lock with return bool")),
               const SizedBox(height: 30),
               ElevatedButton(
-                  onPressed: setWindowUnLock, child: const Text("Unlock")),
+                  onPressed: setWindowUnLock,
+                  child: const Text("Unlock with return bool")),
               const SizedBox(height: 30),
               Text(_msg),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                  onPressed: _windowLockableFunction.windowLock,
+                  child: const Text("Lock with no return")),
+              const SizedBox(height: 30),
+              ElevatedButton(
+                  onPressed: _windowLockableFunction.windowUnLock,
+                  child: const Text("Unlock with no return")),
+              const SizedBox(height: 30),
             ],
           ),
         ),
