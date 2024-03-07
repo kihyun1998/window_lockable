@@ -8,9 +8,6 @@ class MockWindowLockablePlatform
     with MockPlatformInterfaceMixin
     implements WindowLockablePlatform {
   @override
-  Future<String?> getPlatformVersion() => Future.value('42');
-
-  @override
   Future<bool> setWindowLock() {
     return Future.value(false);
   }
@@ -27,14 +24,6 @@ void main() {
 
   test('$MethodChannelWindowLockable is the default instance', () {
     expect(initialPlatform, isInstanceOf<MethodChannelWindowLockable>());
-  });
-
-  test('getPlatformVersion', () async {
-    WindowLockable windowLockablePlugin = WindowLockable();
-    MockWindowLockablePlatform fakePlatform = MockWindowLockablePlatform();
-    WindowLockablePlatform.instance = fakePlatform;
-
-    expect(await windowLockablePlugin.getPlatformVersion(), '42');
   });
 
   test('setWindowLock', () async {

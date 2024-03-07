@@ -6,22 +6,32 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   MethodChannelWindowLockable platform = MethodChannelWindowLockable();
-  const MethodChannel channel = MethodChannel('window_lockable');
+  const MethodChannel channel =
+      MethodChannel('io.github.kihyun1998/window_lockable');
 
   setUp(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(
       channel,
       (MethodCall methodCall) async {
-        return '42';
+        if (methodCall.method == "setWindowSizeable") {
+          return methodCall.arguments['sizeable'];
+        }
+        return null;
       },
     );
   });
 
   tearDown(() {
-    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger.setMockMethodCallHandler(channel, null);
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, null);
   });
 
-  test('getPlatformVersion', () async {
-    expect(await platform.getPlatformVersion(), '42');
+  test('setWindowLock', () async {
+    expect(await platform.setWindowLock(), false);
+  });
+
+  test('setWindowUnlock', () async {
+    expect(await platform.setWindowUnlock(), true);
   });
 }

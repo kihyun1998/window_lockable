@@ -6,10 +6,8 @@
 // For more information about Flutter integration tests, please see
 // https://docs.flutter.dev/cookbook/testing/integration/introduction
 
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
-
 import 'package:window_lockable/window_lockable.dart';
 
 void main() {
@@ -17,9 +15,16 @@ void main() {
 
   testWidgets('getPlatformVersion test', (WidgetTester tester) async {
     final WindowLockable plugin = WindowLockable();
-    final String? version = await plugin.getPlatformVersion();
+    // final String? version = await plugin.getPlatformVersion();
+    final bool isLock = await plugin.setWindowLock();
+    final bool isUnlock = await plugin.setWindowUnlock();
+
     // The version string depends on the host platform running the test, so
     // just assert that some non-empty string is returned.
-    expect(version?.isNotEmpty, true);
+
+    // expect(version?.isNotEmpty, true);
+
+    expect(isLock, true);
+    expect(isUnlock, false);
   });
 }
